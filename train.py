@@ -483,57 +483,56 @@ if __name__ == '__main__':
       workers:                           dataloader的最大worker数量
       """
 
-
     parser = argparse.ArgumentParser()
-    #预加载权重文件
+    # 预加载权重文件
     parser.add_argument('--weights', type=str, default='yolov5s.pt', help='initial weights path')
-    #训练模型
+    # 训练模型
     parser.add_argument('--cfg', type=str, default='my_datas/mydata_2.yaml', help='model.yaml path')
-    #训练路径，包括训练集，验证集，测试集路径 类别总数等
+    # 训练路径，包括训练集，验证集，测试集路径 类别总数等
     parser.add_argument('--data', type=str, default='my_datas/mydata_sign.yaml', help='data.yaml path')
-    #使用的超参数文件
+    # 使用的超参数文件
     parser.add_argument('--hyp', type=str, default='data/hyp.scratch.yaml', help='hyperparameters path')
-    #训练的批次
+    # 训练的批次
     parser.add_argument('--epochs', type=int, default=200)
-    #训练时每批图片的数量
+    # 训练时每批图片的数量
     parser.add_argument('--batch-size', type=int, default=8, help='total batch size for all GPUs')
-    #图片分辨率
+    # 图片分辨率
     parser.add_argument('--img-size', nargs='+', type=int, default=[640, 640], help='[train, test] image sizes')
-    #rect-->是否采用矩形训练。矩形推理:比正方形推理减少更多冗余部分，满足32的倍数
-    #矩形训练:将比例相近的图片放于一个batch
+    # rect-->是否采用矩形训练。矩形推理:比正方形推理减少更多冗余部分，满足32的倍数
+    # 矩形训练:将比例相近的图片放于一个batch
     parser.add_argument('--rect', action='store_true', help='rectangular training')
-    #接着打断训练上次的结果接着训练，暂时不建议打断训练再resume
+    # 接着打断训练上次的结果接着训练，暂时不建议打断训练再resume
     parser.add_argument('--resume', nargs='?', const=True, default=False, help='resume most recent training')
-    #不保存模型，只保存最后的检查点
+    # 不保存模型，只保存最后的检查点
     parser.add_argument('--nosave', action='store_true', help='only save final checkpoint')
-    #不进行验证，只验证最后一批
+    # 不进行验证，只验证最后一批
     parser.add_argument('--notest', action='store_true', help='only test final epoch')
-    #不自动调整anchor 直接使用默认anchor
+    # 不自动调整anchor 直接使用默认anchor
     parser.add_argument('--noautoanchor', action='store_true', help='disable autoanchor check')
-    #超参数的进化
+    # 超参数的进化
     parser.add_argument('--evolve', action='store_true', help='evolve hyperparameters')
-    #谷歌云盘bucket 用不到
+    # 谷歌云盘bucket 用不到
     parser.add_argument('--bucket', type=str, default='', help='gsutil bucket')
-    #是否提前缓存图片到内存 加快训练速度
+    # 是否提前缓存图片到内存 加快训练速度
     parser.add_argument('--cache-images', action='store_true', help='cache images for faster training')
-    #--images-weights :从训练集中采集图像，这些图像有一个epoch的测试中的map反过来加权到图像中，而不是像正常训练统一采样图像
-    #这会降低map提高图像内容被选中的可能
+    # --images-weights :从训练集中采集图像，这些图像有一个epoch的测试中的map反过来加权到图像中，而不是像正常训练统一采样图像
+    # 这会降低map提高图像内容被选中的可能
     parser.add_argument('--image-weights', action='store_true', help='use weighted image selection for training')
-    #训练的是被 GPU/CPU
+    # 训练的是被 GPU/CPU
     parser.add_argument('--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
-    #是否进行多尺度训练
+    # 是否进行多尺度训练
     parser.add_argument('--multi-scale', action='store_true', help='vary img-size +/- 50%%')
-    #数据集是否只有一个类别，默认false
+    # 数据集是否只有一个类别，默认false
     parser.add_argument('--single-cls', action='store_true', help='train multi-class data as single-class')
-    #是否使用adam优化器  默认false
+    # 是否使用adam优化器  默认false
     parser.add_argument('--adam', action='store_true', help='use torch.optim.Adam() optimizer')
-    #是否使用跨卡同步BN，在DDP模式使用
+    # 是否使用跨卡同步BN，在DDP模式使用
     parser.add_argument('--sync-bn', action='store_true', help='use SyncBatchNorm, only available in DDP mode')
 
     parser.add_argument('--local_rank', type=int, default=-1, help='DDP parameter, do not modify')
-    #dataloader的最大worker数量（使用多线程加载图片）
+    # dataloader的最大worker数量（使用多线程加载图片）
     parser.add_argument('--workers', type=int, default=2, help='maximum number of dataloader workers')
-    #训练结果的保存路径
+    # 训练结果的保存路径
     parser.add_argument('--project', default='runs/train', help='save to project/name')
     parser.add_argument('--entity', default=None, help='W&B entity')
     parser.add_argument('--name', default='exp', help='save to project/name')

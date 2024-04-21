@@ -1,6 +1,9 @@
 .idea
 /.github/
-.vs/
 __pycache__
 
 .DS_Store
+/.vs/
+runs/detect/*
+runs/test/*
+runs/train/*

@@ -1,9 +1,5 @@
 import argparse
 import time
-
-import socket
-# 网络通信
-
 from pathlib import Path
 
 import cv2
@@ -17,6 +13,10 @@ from utils.general import check_img_size, check_requirements, check_imshow, non_
     scale_coords, xyxy2xywh, strip_optimizer, set_logging, increment_path
 from utils.plots import plot_one_box
 from utils.torch_utils import select_device, load_classifier, time_synchronized
+
+
+# 网络通信
+
 
 # 我想做的通信啊！！！
 # PC做服务端有错误尝试pc改客户端2022年4月29日
@@ -131,7 +131,6 @@ def detect(save_img=False):
                     # else :
                     #     print("hahhhh")
 
-
                 # Write results
                 for *xyxy, conf, cls in reversed(det):
                     if save_txt:  # Write to file
@@ -184,8 +183,10 @@ def detect(save_img=False):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--weights', nargs='+', type=str, default='runs/train/exp16/weights/best.pt', help='model.pt path(s)')
-    parser.add_argument('--source', type=str, default='my_datas/images/train', help='source')  # file/folder, 0 for webcam
+    parser.add_argument('--weights', nargs='+', type=str, default='runs/train/exp16/weights/best.pt',
+                        help='model.pt path(s)')
+    parser.add_argument('--source', type=str, default='my_datas/images/train',
+                        help='source')  # file/folder, 0 for webcam
     # parser.add_argument('--source', type=str, default='0', help='source')  # file/folder, 0 for webcam
     parser.add_argument('--img-size', type=int, default=640, help='inference size (pixels)')
     parser.add_argument('--conf-thres', type=float, default=0.80, help='object confidence threshold')
